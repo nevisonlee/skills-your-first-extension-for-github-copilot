@@ -32,17 +32,17 @@ app.get("/callback", (req, res) => {
 app.post("/copilot", express.json(), async (req, res) => {
   // Load messages array from the request payload
   const payload = req.body;
-  const messages = payload.messages;
+  const messages = payload.messages; // After this line, add the below
 
   // Add the agent job description to copilot's messages
-  // const jobDescription = await fs.readFile(
-  //   path.join(__dirname, "agent-knowledge", "job-description.md"),
-  //   "utf8"
-  // );
-  // messages.unshift({
-  //   role: "system",
-  //   content: jobDescription,
-  // });
+  const jobDescription = await fs.readFile(
+    path.join(__dirname, "agent-knowledge", "job-description.md"),
+    "utf8"
+  );
+  messages.unshift({
+    role: "system",
+    content: jobDescription,
+  });
 
   // Add the school overview to copilot's messages
   // const schoolOverview = await fs.readFile(
